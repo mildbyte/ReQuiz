@@ -32,8 +32,8 @@ namespace ReQuizClient
 
             hintsUsed = 0;
 
-            Font questionFont = new Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            Font answerFont = questionFont = new Font("Tahoma", 10F);
+            Font questionFont = new Font("Tahoma", 10F);
+            Font answerFont = new Font("Tahoma", 10F);
 
             MessageBox.Show("This test has " + quizParameters.questions.Count + " questions." + Environment.NewLine +
             "You are allowed " + quizParameters.hintsAllowed + " hints.");
@@ -44,7 +44,7 @@ namespace ReQuizClient
                 Panel thisQuestionPanel = new Panel();
                 thisQuestionPanel.Parent = this;
                 thisQuestionPanel.Left = 0;
-                thisQuestionPanel.Width = this.Width;
+                thisQuestionPanel.Width = this.ClientRectangle.Width;
                 thisQuestionPanel.Top = 0;
                 thisQuestionPanel.Height = this.Height - 20;
                 this.Controls.Add(thisQuestionPanel);

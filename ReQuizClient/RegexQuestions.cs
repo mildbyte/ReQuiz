@@ -32,8 +32,7 @@ namespace ReQuizClient
         public void Render(Panel toRender, Font questionFont, Font answerFont) {
             Label lblQuestion = new Label();
             lblQuestion.Parent = toRender;
-            lblQuestion.Text = "Enter a string that matches the following regular expression: "
-                + Environment.NewLine + Environment.NewLine + regExp;
+            lblQuestion.Text = "Enter a string that matches the following regular expression: ";
             lblQuestion.Top = 10;
             lblQuestion.Width = toRender.Width;
             lblQuestion.Height = 20;
@@ -42,19 +41,29 @@ namespace ReQuizClient
             lblQuestion.AutoSize = true;
             lblQuestion.Left = (toRender.Width - lblQuestion.Width) / 2;
             
-            toRender.Controls.Add(lblQuestion);
+            TextBox txtQuestion = new TextBox();
+            txtQuestion.Parent = toRender;
+            txtQuestion.Left = 10;
+            txtQuestion.Font = questionFont;
+            txtQuestion.TextAlign = HorizontalAlignment.Center;
+            txtQuestion.Height = (int)questionFont.Size;
+            txtQuestion.ReadOnly = true;
+            txtQuestion.Text = regExp;
+            txtQuestion.Top = lblQuestion.Bottom + 5;
+            txtQuestion.Width = toRender.Width - 20;
 
             TextBox txtAnswer = new TextBox();
-            txtAnswer.Top = lblQuestion.Bottom + 5;
-            txtAnswer.Left = 5;
-            txtAnswer.Width = toRender.Width / 2;
+            txtAnswer.Top = txtQuestion.Bottom + 5;
+            txtAnswer.Left = 10;
+            txtAnswer.Width = toRender.Width - 20;
             txtAnswer.Parent = toRender;
             txtAnswer.TextChanged += OnAnswerTextChanged;
             txtAnswer.Font = answerFont;
             txtAnswer.Height = (int)answerFont.Size;
 
+            toRender.Controls.Add(lblQuestion);
+            toRender.Controls.Add(txtQuestion);
             toRender.Controls.Add(txtAnswer);
-
         }
 
         public string GetAnswer() {
