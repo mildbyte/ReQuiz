@@ -11,10 +11,14 @@ namespace ReQuizClient
     {
         public static IQuizQuestion CreateQuestion(QuizQuestionRaw question)
         {
-            //if (type == "WMATCH")
-            //{
+            if (question.type == "WMATCH")
+            {
                 return new MatchStringQuestion(question.parameters);
-            //}
+            }
+            else
+            {
+                return new ChooseMatchQuestion(question.parameters);
+            }
         }
     }
 
@@ -98,4 +102,95 @@ namespace ReQuizClient
         }
     }
 
+    class ChooseMatchQuestion : IQuizQuestion
+    {
+        private string[] options;
+        private string questionRegex;
+        private int correctOption;
+        private bool hintAvailable;
+
+        private RadioButton[] displayedOptions;
+
+        public void Render(Panel toRender, Font questionFont, Font answerFont)
+        {
+            Label lblQuestion = new Label();
+            lblQuestion.Parent = toRender;
+            lblQuestion.Text = "Choose a string that matches the following regular expression: ";
+            lblQuestion.Top = 10;
+            lblQuestion.Width = toRender.Width;
+            lblQuestion.Height = 20;
+            lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
+            lblQuestion.Font = questionFont;
+            lblQuestion.AutoSize = true;
+            lblQuestion.Left = (toRender.Width - lblQuestion.Width) / 2;
+
+            TextBox txtQuestion = new TextBox();
+            txtQuestion.Parent = toRender;
+            txtQuestion.Left = 10;
+            txtQuestion.Font = questionFont;
+            txtQuestion.TextAlign = HorizontalAlignment.Center;
+            txtQuestion.Height = (int)questionFont.Size;
+            txtQuestion.ReadOnly = true;
+            txtQuestion.Text = questionRegex;
+            txtQuestion.Top = lblQuestion.Bottom + 5;
+            txtQuestion.Width = toRender.Width - 20;
+
+            displayedOptions = new RadioButton[4];
+            for (int i = 0; i < 4; i++)
+            {
+                RadioButton newOptionButton = new RadioButton();
+                newOptionButton.Parent = toRender;
+                newOptionButton.Text = options[i];
+                newOptionButton.Font = answerFont;
+                newOptionButton.Top = txtQuestion.Bottom + 5 + i * (int)answerFont.Size * 2;
+                newOptionButton.Left = 10;
+                displayedOptions[i] = newOptionButton;
+                toRender.Controls.Add(newOptionButton);
+            }
+
+            toRender.Controls.Add(lblQuestion);
+            toRender.Controls.Add(txtQuestion);
+        }
+
+        public string GetAnswer()
+        {
+            for (int chosenID = 0; chosenID < 4; chosenID++)
+            {
+                if (displayedOptions[chosenID].Checked) return chosenID.ToString();
+            }
+
+            return "-1";
+        }
+
+        public bool HintAvailable()
+        {
+            return hintAvailable;
+        }
+
+        public void DisplayHint()
+        {
+        }
+
+        public ChooseMatchQuestion(string rawOptions)
+        {
+            hintAvailable = false;
+
+            string[] splitOptions = rawOptions.Split(';');
+            options = new string[4];
+
+            questionRegex = splitOptions[0];
+            for (int i = 0; i < 4; i++)
+            {
+                options[i] = splitOptions[i + 1];
+            }
+
+            RegExp parsedQuestionRegex = new RegExp(questionRegex);
+
+            correctOption = 0;
+            while (!parsedQuestionRegex.Match(options[correctOption]))
+            {
+                correctOption++;
+            }
+        }
+    }
 }

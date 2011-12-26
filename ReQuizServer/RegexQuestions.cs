@@ -17,9 +17,9 @@ namespace ReQuizServer
             {
                 switch (randGen.Next(3))
                 {
-                    case 0: result.Add(new MatchStringQuestion(10)); break;
-                    case 1: result.Add(new ChooseMatchQuestion(10)); break;
-                    case 2: result.Add(new MatchStringQuestion(10)); break;
+                    case 0: result.Add(new MatchStringQuestion(3)); break;
+                    case 1: result.Add(new ChooseMatchQuestion(3)); break;
+                    case 2: result.Add(new MatchStringQuestion(3)); break;
                 }
             }
 
@@ -71,7 +71,7 @@ namespace ReQuizServer
                         convertedString[i] = RegexGen.RandomCharacter();
                     }
                 }
-                result = convertedString.ToString();
+                result = new string(convertedString);
             } while (parsedRegex.Match(result));
 
             return result;
@@ -84,7 +84,7 @@ namespace ReQuizServer
 
             correctID = randomGen.Next(4);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 string matchString = parsedRegex.RandomString();
                 if (i == correctID) options[i] = matchString;
@@ -100,12 +100,12 @@ namespace ReQuizServer
         public override string ToString()
         {
             string result = "";
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 result += options[i] + ";";
             }
 
-            return result;
+            return "CMATCH" + Environment.NewLine + regex + ';' + result;
         }
     }
 }
