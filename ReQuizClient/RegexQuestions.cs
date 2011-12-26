@@ -22,6 +22,7 @@ namespace ReQuizClient
         }
     }
 
+
     class MatchStringQuestion : IQuizQuestion
     {
         private string answer;
@@ -120,6 +121,7 @@ namespace ReQuizClient
             hintTextBox.Show();
         }
     }
+
 
     class ChooseMatchQuestion : IQuizQuestion
     {
