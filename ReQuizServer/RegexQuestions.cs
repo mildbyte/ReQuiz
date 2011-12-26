@@ -17,9 +17,9 @@ namespace ReQuizServer
             {
                 switch (randGen.Next(3))
                 {
-                    case 0: result.Add(new MatchStringQuestion(generator)); break;
-                    case 1: result.Add(new MatchStringQuestion(generator)); break;
-                    case 2: result.Add(new MatchStringQuestion(generator)); break;
+                    case 0: result.Add(new MatchStringQuestion(10)); break;
+                    case 1: result.Add(new ChooseMatchQuestion(10)); break;
+                    case 2: result.Add(new MatchStringQuestion(10)); break;
                 }
             }
 
@@ -32,9 +32,9 @@ namespace ReQuizServer
         private string regex;
         private RegExp parsedRegex;
 
-        public MatchStringQuestion(RegexGen generator)
+        public MatchStringQuestion(int elementNumber)
         {
-            regex = generator.NextExpression(10);
+            regex = RegexGen.GenerateExpression(elementNumber);
             parsedRegex = new RegExp(regex);
         }
 
@@ -51,22 +51,61 @@ namespace ReQuizServer
 
     class ChooseMatchQuestion : IQuizQuestion
     {
+        private static Random randomGen = new Random();
         private string regex;
         private RegExp parsedRegex;
         private string[] options = new string[4];
         private int correctID;
-        
-        public ChooseMatchQuestion(RegexGen generator)
+
+        private string GenerateInvalidString(string validString)
         {
-            regex = generator.NextExpression(5);
+            char[] convertedString = validString.ToCharArray();
+            string result;
+
+            do
+            {
+                for (int i = 0; i < convertedString.Length; i++)
+                {
+                    if (randomGen.Next() % 3 == 0)
+                    {
+                        convertedString[i] = RegexGen.RandomCharacter();
+                    }
+                }
+                result = convertedString.ToString();
+            } while (parsedRegex.Match(result));
+
+            return result;
+        }
+        
+        public ChooseMatchQuestion(int elementNumber)
+        {
+            regex = RegexGen.GenerateExpression(elementNumber);
             parsedRegex = new RegExp(regex);
 
-            correctID = new Random().Next(4);
+            correctID = randomGen.Next(4);
+
+            for (int i = 0; i < 3; i++)
+            {
+                string matchString = parsedRegex.RandomString();
+                if (i == correctID) options[i] = matchString;
+                else options[i] = GenerateInvalidString(matchString);
+            }
         }
 
         public bool MarkAnswer(string answer) 
         {
             return (int.Parse(answer) == correctID);
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+            for (int i = 0; i < 3; i++)
+            {
+                result += options[i] + ";";
+            }
+
+            return result;
         }
     }
 }
