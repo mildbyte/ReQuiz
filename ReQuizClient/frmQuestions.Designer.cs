@@ -98,6 +98,7 @@
             // 
             // frmQuestions
             // 
+            this.AcceptButton = this.btnNextQuestion;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(536, 218);
@@ -107,10 +108,15 @@
             this.Controls.Add(this.btnPrevQuestion);
             this.Controls.Add(this.btnNextQuestion);
             this.Controls.Add(this.btnSubmit);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmQuestions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuestions_FormClosing);
             this.ResumeLayout(false);
+
         }
 
         #endregion

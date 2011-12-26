@@ -34,6 +34,7 @@
             // 
             // txtLog
             // 
+            this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLog.Location = new System.Drawing.Point(12, 12);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
@@ -59,8 +60,13 @@
             this.ClientSize = new System.Drawing.Size(514, 408);
             this.Controls.Add(this.btnFinish);
             this.Controls.Add(this.txtLog);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmServerProcess";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmServerProcess_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

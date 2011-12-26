@@ -45,7 +45,7 @@ namespace ReQuizClient
                 } catch (FormatException ex) {
                     MessageBox.Show("You have entered an invalid IP address and/or port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtAddress.SelectAll();
-                    txtAddress.Focus();
+                    txtAddress.Select();
                     return;
                 }
 
@@ -99,6 +99,11 @@ namespace ReQuizClient
         private void OnSubmitFormClose(object sender, FormClosedEventArgs e)
         {
             this.Close();
+        }
+
+        private void frmStart_Load(object sender, EventArgs e)
+        {
+            txtAddress.Select();
         }
     }
 }

@@ -36,9 +36,9 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(12, 264);
+            this.btnExit.Location = new System.Drawing.Point(6, 264);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(319, 47);
+            this.btnExit.Size = new System.Drawing.Size(325, 47);
             this.btnExit.TabIndex = 3;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -46,9 +46,9 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(12, 211);
+            this.btnExport.Location = new System.Drawing.Point(6, 211);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(319, 47);
+            this.btnExport.Size = new System.Drawing.Size(325, 47);
             this.btnExport.TabIndex = 3;
             this.btnExport.Text = "Export the marks...";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -56,12 +56,12 @@
             // 
             // txtResults
             // 
-            this.txtResults.Location = new System.Drawing.Point(12, 12);
+            this.txtResults.Location = new System.Drawing.Point(6, 12);
             this.txtResults.Multiline = true;
             this.txtResults.Name = "txtResults";
             this.txtResults.ReadOnly = true;
             this.txtResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResults.Size = new System.Drawing.Size(319, 193);
+            this.txtResults.Size = new System.Drawing.Size(325, 193);
             this.txtResults.TabIndex = 4;
             // 
             // sfdExportMarks
@@ -73,11 +73,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(337, 323);
             this.Controls.Add(this.txtResults);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnExit);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmFinish";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Results";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFinish_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFinish_FormClosed);

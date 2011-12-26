@@ -107,6 +107,7 @@
             // 
             // frmStart
             // 
+            this.AcceptButton = this.btnConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(450, 258);
@@ -118,8 +119,12 @@
             this.Controls.Add(this.lblIPAddress);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmStart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz";
+            this.Load += new System.EventHandler(this.frmStart_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -37,10 +37,14 @@ namespace ReQuizServer
 
         private void btnFinish_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void frmServerProcess_FormClosing(object sender, FormClosingEventArgs e)
+        {
             ConcurrentDictionary<string, ReQuizResult> results = serverHandler.StopServer();
             frmFinish finishForm = new frmFinish(results);
             finishForm.Show();
-            this.Close();
         }
     }
 }

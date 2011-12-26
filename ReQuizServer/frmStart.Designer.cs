@@ -180,7 +180,11 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmStart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz Server";
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();

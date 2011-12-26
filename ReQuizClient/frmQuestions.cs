@@ -11,8 +11,6 @@ namespace ReQuizClient
 {
     public partial class frmQuestions : Form
     {
-        public event QuizCompletedEventHandler QuizCompleted;
-
         private QuizParameters quizParameters;
         private QuizAnswers quizAnswers;
         private List<IQuizQuestion> quizQuestions;
@@ -20,6 +18,8 @@ namespace ReQuizClient
         private int currQuestionID;
 
         private int hintsUsed;
+
+        public event QuizCompletedEventHandler QuizCompleted;
 
         public frmQuestions(QuizParameters quizParameters)
         {
@@ -61,6 +61,8 @@ namespace ReQuizClient
             this.Show();
             renderedQuestions[0].Show();
             UpdateStatusBar();
+
+            btnNextQuestion.Select();
         }
 
         private void UpdateStatusBar()
@@ -75,10 +77,8 @@ namespace ReQuizClient
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            DialogResult choice = MessageBox.Show("Are you sure you want to submit your answers for marking?", "Answers",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (choice == DialogResult.No) return;
+            if (MessageBox.Show("Are you sure you want to submit your answers for marking?", "Answers",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
             
             foreach (IQuizQuestion question in quizQuestions)
             {
