@@ -37,7 +37,7 @@ namespace ReQuizClient
     class MatchStringQuestion : IQuizQuestion
     {
         //Random number generator
-        Random randGen = new Random();
+        private static Random randGen = new Random();
 
         //Regular expression in question
         private string questionRegex;
@@ -94,7 +94,7 @@ namespace ReQuizClient
             txtQuestion.Width = toRender.Width - 20;
 
             //Textbox into which the answer would be entered
-            TextBox txtAnswer = new TextBox();
+            txtAnswer = new TextBox();
             txtAnswer.Top = txtQuestion.Bottom + 5;
             txtAnswer.Left = 10;
             txtAnswer.Width = toRender.Width - 20;
