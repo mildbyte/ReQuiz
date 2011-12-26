@@ -67,7 +67,9 @@ namespace ReQuizClient
         /// <summary>
         /// Specifies whether a hint to this question is available
         /// </summary>
-        bool HintAvailable();
+        bool HintAvailable{
+            get;
+        }
 
         /// <summary>
         /// Shows a hint to this question to the user

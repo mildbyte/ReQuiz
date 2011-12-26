@@ -68,7 +68,7 @@ namespace ReQuizClient
         private void UpdateStatusBar()
         {
             btnHint.BringToFront();
-            btnHint.Visible = (hintsUsed < quizParameters.hintsAllowed) && (quizQuestions[currQuestionID].HintAvailable());
+            btnHint.Visible = (hintsUsed < quizParameters.hintsAllowed) && (quizQuestions[currQuestionID].HintAvailable);
             btnNextQuestion.Enabled = currQuestionID < quizQuestions.Count - 1;
             btnPrevQuestion.Enabled = currQuestionID > 0;
             lblHints.Text = "Hints: " + (quizParameters.hintsAllowed - hintsUsed).ToString();
