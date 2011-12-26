@@ -7,8 +7,16 @@ using System.Drawing;
 
 namespace ReQuizClient
 {
+    /// <summary>
+    /// Defines a ReQuiz parser for regular expression questions
+    /// </summary>
     class RegexQuestions
     {
+        /// <summary>
+        /// Detects the type of the raw ReQuiz question and creates a corresponding parsed question object
+        /// </summary>
+        /// <param name="question">Raw quiz question to parse</param>
+        /// <returns>Parsed ReQuiz question</returns>
         public static IQuizQuestion CreateQuestion(QuizQuestionRaw question)
         {
             if (question.type == "WMATCH")
@@ -21,6 +29,7 @@ namespace ReQuizClient
             }
         }
     }
+
 
 
     class MatchStringQuestion : IQuizQuestion

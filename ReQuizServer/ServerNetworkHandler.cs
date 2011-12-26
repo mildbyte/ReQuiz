@@ -166,7 +166,7 @@ namespace ReQuizServer
             this.serverPort = port;
 
             foreach (IQuizQuestion currQuestion in questions) {
-                questionsBuf += currQuestion.ToString() + Environment.NewLine;
+                questionsBuf += currQuestion.ToRawFormat() + Environment.NewLine;
             }
 
             this.results = new ConcurrentDictionary<string,ReQuizResult>();
