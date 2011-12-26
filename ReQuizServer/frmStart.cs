@@ -18,6 +18,7 @@ namespace ReQuizServer
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            //Create the main form that displays the server status and show it
             frmServerProcess serverForm = new frmServerProcess((int)nudPortNumber.Value,
                 (int)nudNoQuestions.Value, (int)nudNoHints.Value);
             this.Hide();
