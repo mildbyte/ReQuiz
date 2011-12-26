@@ -110,9 +110,7 @@
             this.Name = "frmQuestions";
             this.Text = "ReQuiz";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuestions_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmQuestions_FormClosed);
             this.ResumeLayout(false);
-
         }
 
         #endregion

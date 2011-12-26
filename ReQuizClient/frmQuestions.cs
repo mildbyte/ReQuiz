@@ -32,8 +32,8 @@ namespace ReQuizClient
 
             hintsUsed = 0;
 
-            Font questionFont = new Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            Font answerFont = questionFont = new Font("Microsoft Sans Serif", 10F);
+            Font questionFont = new Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            Font answerFont = questionFont = new Font("Tahoma", 10F);
 
             MessageBox.Show("This test has " + quizParameters.questions.Count + " questions." + Environment.NewLine +
             "You are allowed " + quizParameters.hintsAllowed + " hints.");
@@ -71,10 +71,6 @@ namespace ReQuizClient
             btnPrevQuestion.Enabled = currQuestionID > 0;
             lblHints.Text = "Hints: " + (quizParameters.hintsAllowed - hintsUsed).ToString();
             lblQuestionNumber.Text = currQuestionID + 1 + "/" + quizQuestions.Count();
-        }
-
-        private void frmQuestions_FormClosed(object sender, FormClosedEventArgs e)
-        {
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
