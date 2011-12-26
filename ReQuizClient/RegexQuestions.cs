@@ -158,7 +158,6 @@ namespace ReQuizClient
             {
                 if (displayedOptions[chosenID].Checked) return chosenID.ToString();
             }
-
             return "-1";
         }
 
@@ -169,11 +168,27 @@ namespace ReQuizClient
 
         public void DisplayHint()
         {
+            hintAvailable = false;
+
+            Random randGen = new Random();
+            int toRemove1, toRemove2;
+            do {
+                toRemove1 = randGen.Next(4);
+            } while (toRemove1 == correctOption);
+            do { 
+                toRemove2 = randGen.Next(4);
+            } while (toRemove2 == correctOption || toRemove2 == toRemove1);
+
+            displayedOptions[toRemove1].Hide();
+            displayedOptions[toRemove2].Hide();
+
+            displayedOptions[toRemove1].Checked = false;
+            displayedOptions[toRemove2].Checked = false;
         }
 
         public ChooseMatchQuestion(string rawOptions)
         {
-            hintAvailable = false;
+            hintAvailable = true;
 
             string[] splitOptions = rawOptions.Split(';');
             options = new string[4];
