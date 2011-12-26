@@ -46,7 +46,7 @@ namespace ReQuizClient
             if (e.Result.answersAccepted)
             {
                 lblResult.Text = "Correct answers: " + e.Result.correctAnswers + "/" + answers.answers.Count +
-                    string.Format(" ({0:00}%)", e.Result.correctAnswers * 100 / answers.answers.Count) + Environment.NewLine +
+                    string.Format(" ({0:#0}%)", e.Result.correctAnswers * 100 / answers.answers.Count) + Environment.NewLine +
                     "Hints used: " + answers.hintsUsed + Environment.NewLine +
                     "Total mark: " + e.Result.mark;
             }

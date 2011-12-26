@@ -28,6 +28,8 @@ namespace ReQuizClient
         private string regExp;
         private bool hintAvailable;
 
+        private TextBox hintTextBox;
+
         private void OnAnswerTextChanged(object sender, EventArgs e)
         {
             answer = ((TextBox)sender).Text;
@@ -65,9 +67,23 @@ namespace ReQuizClient
             txtAnswer.Font = answerFont;
             txtAnswer.Height = (int)answerFont.Size;
 
+            TextBox txtHint = new TextBox();
+            txtHint.Parent = toRender;
+            txtHint.Left = 10;
+            txtHint.Width = toRender.Width - 20;
+            txtHint.ReadOnly = true;
+            txtHint.Top = txtAnswer.Bottom + 5;
+            txtHint.TextAlign = HorizontalAlignment.Center;
+            txtHint.Font = answerFont;
+            txtHint.Height = (int)answerFont.Size;
+            txtHint.Visible = false;
+
+            hintTextBox = txtHint;
+
             toRender.Controls.Add(lblQuestion);
             toRender.Controls.Add(txtQuestion);
             toRender.Controls.Add(txtAnswer);
+            toRender.Controls.Add(txtHint);
         }
 
         public string GetAnswer() {
@@ -88,17 +104,20 @@ namespace ReQuizClient
         public void DisplayHint()
         {
             if (!hintAvailable) return;
-
             hintAvailable = false;
+
+            Random randGen = new Random();
+
             RegExp parsedExp = new RegExp(regExp);
             char[] randomAnswer = parsedExp.RandomString().ToCharArray();
 
-            for (int i = 0; i < randomAnswer.Length; i += 2)
+            for (int i = 0; i < randomAnswer.Length; i++)
             {
-                randomAnswer[i] = '_';
+                if (randGen.Next() % 3 == 0) randomAnswer[i] = '_';
             }
 
-            MessageBox.Show("Hint: a string that matches this expression is " + Environment.NewLine + new string(randomAnswer));
+            hintTextBox.Text = "Hint: " + new string(randomAnswer);
+            hintTextBox.Show();
         }
     }
 
