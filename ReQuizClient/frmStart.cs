@@ -109,6 +109,9 @@ namespace ReQuizClient
             //The user has entered the answers on the question form
             //Create a form that would submit the answers to the server
             frmSubmit submitForm = new frmSubmit(e.Answers, serverAddr, serverPort);
+
+            //Destroy the questions form
+            ((frmQuestions)sender).Dispose();
         }
 
         private void OnQuestionFormClose(object sender, FormClosedEventArgs e)
