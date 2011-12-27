@@ -275,7 +275,7 @@ namespace ReQuizServer
         public void StartServer()
         {
             //Return if the server's already running
-            if (serverThread.IsBusy) return;
+            if (serverThread != null) return;
             if (ServerLog != null)
                 ServerLog(this, new ServerLogEventArgs("Starting the server..."));
 
