@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReQuizClient
+namespace ReQuizCommon
 {
     /// <summary>
-    /// Enumerates the possible types of a non-deterministic finite automaton
+    /// Enumerates the possible types of a non-deterministic finite automaton state
     /// </summary>
     enum NFAStateType {
         CharSet,
@@ -467,7 +467,7 @@ namespace ReQuizClient
     /// <summary>
     /// A basic regular expression engine
     /// </summary>
-    class RegExp
+    public class Regex
     {
         //Stack of the currently used operators
         private Stack<IRegExpOperator> operatorStack;
@@ -763,7 +763,7 @@ namespace ReQuizClient
         /// Compiles the given regular expression
         /// </summary>
         /// <param name="regExp">The regular expression to parse</param>
-        public RegExp(string regExp)
+        public Regex(string regExp)
         {
             //Initialisation
             operatorStack = new Stack<IRegExpOperator>();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using ReQuizCommon;
 
 namespace ReQuizClient
 {
@@ -151,7 +152,7 @@ namespace ReQuizClient
             hintAvailable = false;
 
             //Get a random answer that matches this regex
-            RegExp parsedExp = new RegExp(questionRegex);
+            Regex parsedExp = new Regex(questionRegex);
             char[] randomAnswer = parsedExp.RandomString().ToCharArray();
 
             //Replace some characters in it with underscores
@@ -278,7 +279,7 @@ namespace ReQuizClient
             hintAvailable = false;
 
             //Find the correct option
-            RegExp parsedQuestionRegex = new RegExp(questionRegex);
+            Regex parsedQuestionRegex = new Regex(questionRegex);
             int correctOption = 0;
             while (!parsedQuestionRegex.Match(options[correctOption]))
             {

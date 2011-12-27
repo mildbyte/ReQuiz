@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReQuizServer
+namespace ReQuizCommon
 {
-    class RegexGen
+    public class RegexGenerator
     {
         static private Random randGen = new Random();
 

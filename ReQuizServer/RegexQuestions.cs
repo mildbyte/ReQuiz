@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ReQuizCommon;
 
 namespace ReQuizServer
 {
@@ -11,7 +12,7 @@ namespace ReQuizServer
     class RegexQuestions
     {
         //Random generators
-        private static RegexGen generator = new RegexGen();
+        private static RegexGenerator generator = new RegexGenerator();
         private static Random randGen = new Random();
 
         /// <summary>
@@ -47,8 +48,7 @@ namespace ReQuizServer
     {
         //Regular expression used in this question
         private string regex;
-        private RegExp parsedRegex;
-
+        private Regex parsedRegex;
 
         /// <summary>
         /// Generates a "write matching string" question
@@ -58,8 +58,8 @@ namespace ReQuizServer
         public MatchStringQuestion(int elementNumber)
         { 
             //Generate a random regular expression and parse it
-            regex = RegexGen.GenerateExpression(elementNumber);
-            parsedRegex = new RegExp(regex);
+            regex = RegexGenerator.GenerateExpression(elementNumber);
+            parsedRegex = new Regex(regex);
         }
 
 
@@ -96,7 +96,7 @@ namespace ReQuizServer
 
         //Regular expression used by the question
         private string regex;
-        private RegExp parsedRegex;
+        private Regex parsedRegex;
 
         //The 4 strings
         private string[] options = new string[4];
@@ -124,7 +124,7 @@ namespace ReQuizServer
                 {
                     if (randomGen.Next() % 3 == 0)
                     {
-                        convertedString[i] = RegexGen.RandomCharacter();
+                        convertedString[i] = RegexGenerator.RandomCharacter();
                     }
                 }
                 result = new string(convertedString);
@@ -144,8 +144,8 @@ namespace ReQuizServer
         public ChooseMatchQuestion(int elementNumber)
         {
             //Generate the required regular expression
-            regex = RegexGen.GenerateExpression(elementNumber);
-            parsedRegex = new RegExp(regex);
+            regex = RegexGenerator.GenerateExpression(elementNumber);
+            parsedRegex = new Regex(regex);
 
             //Pick which string will be the correct one
             correctID = randomGen.Next(4);
