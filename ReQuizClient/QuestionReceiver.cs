@@ -24,42 +24,6 @@ namespace ReQuizClient
         private string username;
         private int serverPort;
 
-        public IPAddress Server
-        {
-            get
-            {
-                return serverAddress;
-            }
-            set
-            {
-                serverAddress = value;
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                username = value;
-            }
-        }
-
-        public int Port
-        {
-            get
-            {
-                return serverPort;
-            }
-            set
-            {
-                serverPort = value;
-            }
-        }
-
         /// <summary>
         /// Occurs when the component needs to report an event
         /// </summary>
@@ -75,8 +39,16 @@ namespace ReQuizClient
         /// </summary>
         public event ConnectFailedEventHandler ConnectFailed;
 
-        public QuestionReceiver()
+        /// <summary>
+        /// Initialises the component
+        /// </summary>
+        public QuestionReceiver(IPAddress serverAddress, int serverPort, string username)
         {
+            //Store the parameters
+            this.serverAddress = serverAddress;
+            this.serverPort = serverPort;
+            this.username = username;
+
             //Set up the background worker thread
             clientThread = new BackgroundWorker();
             clientThread.WorkerReportsProgress = true;
@@ -105,13 +77,17 @@ namespace ReQuizClient
             clientThread.CancelAsync();
         }
 
-        //Propagates the log request to the event handler specified by the user
+        /// <summary>
+        /// Propagates the log request to the event handler specified by the user
+        /// </summary>
         private void LogEvent(object sender, ProgressChangedEventArgs e)
         {
             ClientLog(this, new ClientLogEventArgs((string)e.UserState));
         }
 
-        //Performs the actual fetch operation
+        /// <summary>
+        /// Performs the actual fetch operation
+        /// </summary>
         private void DoConnectAndFetchQuestions(object sender, DoWorkEventArgs e)
         {
             //Establish the connection to the server
@@ -150,7 +126,9 @@ namespace ReQuizClient
             serverSocket.Close();
         }
 
-        //Finalises the operation performed by the background thread
+        /// <summary>
+        /// Finalises the operation performed by the background thread
+        /// </summary>
         private void FinishConnectAndFetchQuestions(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)

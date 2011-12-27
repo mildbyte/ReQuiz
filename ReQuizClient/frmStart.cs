@@ -67,12 +67,10 @@ namespace ReQuizClient
                 lblIPAddress.Visible = false;
 
                 //Set up the component that will receive the questions
-                QuestionReceiver questionReceiver = new QuestionReceiver();
-                questionReceiver.Server = serverAddr;
-                questionReceiver.Port = serverPort;
-
+                QuestionReceiver questionReceiver = new QuestionReceiver(serverAddr, serverPort, Environment.UserName);
                 //Windows username is used as the username
-                questionReceiver.Username = System.Environment.UserName;
+
+                //Set up the event handlers
                 questionReceiver.ClientLog += LogEvent;
                 questionReceiver.QuestionsFetched += OnConnectComplete;
                 questionReceiver.ConnectFailed += OnConnectFailed;
