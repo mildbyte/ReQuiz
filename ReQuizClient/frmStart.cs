@@ -11,6 +11,9 @@ using System.Security.Principal;
 
 namespace ReQuizClient
 {
+    /// <summary>
+    /// Gets the connection parameters and fetches the question from the server
+    /// </summary>
     public partial class frmStart : Form
     {
         private bool isConnecting = false;
@@ -99,18 +102,15 @@ namespace ReQuizClient
             frmQuestions questForm = new frmQuestions(e.Parameters);
 
             //When the question form will be closed, request it to pass the user's answers back
-            questForm.QuizCompleted += OnQuestionsClose;
+            questForm.QuizCompleted += OnQuizCompleted;
             questForm.FormClosed += OnQuestionFormClose;
         }
 
-        private void OnQuestionsClose(object sender, QuizCompletedEventArgs e)
+        private void OnQuizCompleted(object sender, QuizCompletedEventArgs e)
         {
             //The user has entered the answers on the question form
             //Create a form that would submit the answers to the server
             frmSubmit submitForm = new frmSubmit(e.Answers, serverAddr, serverPort);
-
-            //Notify this form when the submission form is closed
-            submitForm.FormClosed += OnSubmitFormClose;
         }
 
         private void OnQuestionFormClose(object sender, FormClosedEventArgs e)
@@ -119,13 +119,6 @@ namespace ReQuizClient
             //Destroy the questions form and show this form
             ((frmQuestions)sender).Dispose();
             this.Show();
-        }
-
-        private void OnSubmitFormClose(object sender, FormClosedEventArgs e)
-        {
-            //The user has viewed his results and wants to exit the application
-            //Close the main form
-            this.Close();
         }
 
         private void frmStart_Load(object sender, EventArgs e)

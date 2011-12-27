@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace ReQuizClient
 {
+    /// <summary>
+    /// Parses the questions, displays them to the user and receives his answers
+    /// </summary>
     public partial class frmQuestions : Form
     {
         //The questions and rules for this quiz

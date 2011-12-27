@@ -10,14 +10,16 @@ using System.Net;
 
 namespace ReQuizClient
 {
+    /// <summary>
+    /// Submits the user's answers to the server, receives mark and displays it
+    /// </summary>
     public partial class frmSubmit : Form
     {
         //User's answers to the quiz
         private QuizAnswers answers;
 
         /// <summary>
-        /// Creates a submission form that will automatically submit the answers and
-        /// display the score to the user
+        /// Initializes the submission form
         /// </summary>
         /// <param name="answers">User's quiz answers</param>
         /// <param name="server">IP address of the server</param>
@@ -29,11 +31,7 @@ namespace ReQuizClient
             this.answers = answers;
 
             //Initialise the answer-sending and mark-receiving component
-            MarkReceiver answerSender = new MarkReceiver();
-            answerSender.Server = server;
-            answerSender.Port = port;
-            answerSender.Username = System.Environment.UserName;
-            answerSender.Answers = answers;
+            MarkReceiver answerSender = new MarkReceiver(server, port, Environment.UserName, answers);
 
             //Set up the events to log connection progress and get back the 
             //quiz result when the operation is complete
@@ -79,6 +77,11 @@ namespace ReQuizClient
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmSubmit_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

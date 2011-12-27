@@ -16,66 +16,41 @@ namespace ReQuizClient
     /// </summary>
     class MarkReceiver
     {
-        private BackgroundWorker clientThread;  //Thread used to perform the operation
+        //Thread used to perform the operation
+        private BackgroundWorker clientThread;
+
+        //Information about the connection
         private IPAddress serverAddress;
         private int serverPort;
         private string username;
+        
+        //User's answers to the quiz
         private QuizAnswers answers;
 
-        public IPAddress Server
-        {
-            get
-            {
-                return serverAddress;
-            }
-            set
-            {
-                serverAddress = value;
-            }
-        }
+        /// <summary>
+        /// Gets raised when a log message needs to be reported
+        /// </summary>
+        public event ClientLogEventHandler ClientLog;   //
 
-        public string Username
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                username = value;
-            }
-        }
+        /// <summary>
+        /// Gets raised when the process has finished fetching marks
+        /// </summary>
+        public event MarkReceivedEventHandler MarkReceived;
 
-        public QuizAnswers Answers
-        {
-            get
-            {
-                return answers;
-            }
-            set
-            {
-                answers = value;
-            }
-        }
-
-        public int Port
-        {
-            get
-            {
-                return serverPort;
-            }
-            set
-            {
-                serverPort = value;
-            }
-        }
-
-        public event ClientLogEventHandler ClientLog;   //Gets raised when a status needs to be reported
-        public event MarkReceivedEventHandler MarkReceived; //
+        /// <summary>
+        /// Gers raised on connection failure
+        /// </summary>
         public event ConnectFailedEventHandler ConnectFailed;
 
-        public MarkReceiver()
+        public MarkReceiver(IPAddress serverAddress, int serverPort, string username, QuizAnswers quizAnswers)
         {
+            //Store the connection parameters
+            this.serverAddress = serverAddress;
+            this.serverPort = serverPort;
+            this.username = username;
+            this.answers = quizAnswers;
+
+            //Set up the background thread
             clientThread = new BackgroundWorker();
             clientThread.WorkerReportsProgress = true;
             clientThread.WorkerSupportsCancellation = true;
@@ -193,7 +168,7 @@ namespace ReQuizClient
     }
 
     /// <summary>
-    /// Encapsulates the quiz result
+    /// Stores the quiz result for the MarkReceived event
     /// </summary>
     public class MarkReceivedEventArgs : EventArgs
     {
@@ -214,7 +189,7 @@ namespace ReQuizClient
 
 
     /// <summary>
-    /// Encapsulates the log message
+    /// Stores the log message for the ClientLog event
     /// </summary>
     public class ClientLogEventArgs : EventArgs
     {
@@ -235,7 +210,7 @@ namespace ReQuizClient
 
 
     /// <summary>
-    /// Reports the exception encountered on failed connections
+    /// Stores the data for the ConnectFailed event
     /// </summary>
     public class ConnectFailedEventArgs : EventArgs
     {
