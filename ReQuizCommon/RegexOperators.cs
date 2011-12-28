@@ -6,6 +6,21 @@ using System.Text;
 namespace ReQuizCommon
 {
     /// <summary>
+    /// Enumerates the possible types of metacharacters
+    /// </summary>
+    enum RegexOperatorType
+    {
+        Concatenate,
+        Plus,
+        Star,
+        Question,
+        LeftBracket,
+        RightBracket,
+        Alternate
+    };
+
+
+    /// <summary>
     /// Defines an interface for a regular expression operator
     /// </summary>
     interface IRegExpOperator

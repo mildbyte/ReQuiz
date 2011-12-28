@@ -17,21 +17,6 @@ namespace ReQuizCommon
 
 
     /// <summary>
-    /// Enumerates the possible types of metacharacters
-    /// </summary>
-    enum RegexOperatorType
-    {
-        Concatenate,
-        Plus,
-        Star,
-        Question,
-        LeftBracket,
-        RightBracket,
-        Alternate
-    };
-
-
-    /// <summary>
     /// Provides a common interface an NFA used in Thompson's algorithm must implement
     /// </summary>
     public interface INFAState
@@ -60,13 +45,28 @@ namespace ReQuizCommon
         /// <summary>
         /// Generates a random character that would be accepted by this NFA
         /// </summary>
-        public char RandomCharacter()
+        public char RandomCharacter(Random randGen)
         {
-            //TODO: implement randomness (only the first character is returned for now)
-            char i = (char)0;
-            while (i < 256 && !characters[i]) i++;
+            //Get the amount of characters in this set
+            int numChars = 0;
+            for (int i = 0; i < 256; i++)
+            {
+                if (characters[i]) numChars++;
+            }
 
-            return i;
+            //Get the number of the character to pick
+            int randomCharPos = randGen.Next(numChars);
+
+            //Find the character in this position
+            for (int i = 0; i < 256; i++)
+            {
+                if (characters[i]) randomCharPos--;
+                if (randomCharPos < 0) return (char)i;
+            }
+
+            //This code shouldn't be reached, but the program has to return something in any case
+            //Here, a character with code 0 is returned.
+            return '\x0';
         }
 
         /// <summary>
@@ -81,31 +81,46 @@ namespace ReQuizCommon
         /// <summary>
         /// Constructs a character-set NFA from a given character group
         /// </summary>
-        /// <param name="character">A character group (bracketless) to construct an NFA from</param>
-        public NFACharacterSet(string character)
+        /// <param name="characterGroup">A character group (bracketless) to construct an NFA from</param>
+        public NFACharacterSet(string characterGroup)
         {
             //Initialize the parameters
             nextState = null;
             characters = new bool[256];
 
+            //If it's a single character, skip the character group parsing operation
+            if (characterGroup.Length == 1)
+            {
+                characters[characterGroup[0]] = true;
+                return;
+            }
+
+            //Parse the character group
             int currPos = 0;
             char currChar = ' ';
 
-            while (currPos < character.Length)
+            while (currPos < characterGroup.Length)
             {
-                if (character[currPos] == '-')
+                //If we have reached the dash in the middle of e.g. A-Z
+                if (characterGroup[currPos] == '-')
                 {
-                    if (currChar < character[currPos + 1])
+                    if (currChar < characterGroup[currPos + 1])
                     {
-                        for (char i = currChar; i < character[currPos + 1]; i++)
+                        //The NFA accepts all characters from the left of the dash (stored in currChar)
+                        //to the right (characterGroup[currPos + 1])
+                        for (char i = currChar; i < characterGroup[currPos + 1]; i++)
                         {
                             characters[i] = true;
                         }
                     }
+                    //Move past the second limiting character in the group
+                    currPos += 2;
                 }
                 else
                 {
-                    currChar = character[currPos];
+                    //If it's a simple character, add it to the accepted characters' group
+                    //and store it in case it turns out to be "A-Z" sequence
+                    currChar = characterGroup[currPos];
                     characters[currChar] = true;
                     currPos++;
                 }
@@ -265,19 +280,30 @@ namespace ReQuizCommon
             //If we need to insert a concat operator between them, add the operator into the new string
             string result = "(";
 
-            //bool insideGroup = false;
+            bool insideGroup = false;
             
             for (int i = 0; i < regExp.Length - 1; i++)
             {
                 result += regExp[i];
+                if (regExp[i] == '[') {
+                    insideGroup = true;
+                    continue;
+                }
 
-                if (
-                      (!RegexOperators.IsOperator(regExp[i]) && !RegexOperators.IsOperator(regExp[i + 1]))
-                   || (!RegexOperators.IsOperator(regExp[i]) && regExp[i + 1] == '(')
-                   || (regExp[i] == ')' && !RegexOperators.IsOperator(regExp[i + 1]))
-                   || (RegexOperators.IsQuantifier(regExp[i]) && !RegexOperators.IsOperator(regExp[i + 1]))
-                   || (RegexOperators.IsQuantifier(regExp[i]) && regExp[i + 1] == '(')
-                   || (regExp[i] == ')' && regExp[i + 1] == '(')
+                if (regExp[i] == ']')
+                {
+                    insideGroup = false;
+                }
+
+                if (!insideGroup && (
+                          (!RegexOperators.IsOperator(regExp[i]) && !RegexOperators.IsOperator(regExp[i + 1]))
+                       || (!RegexOperators.IsOperator(regExp[i]) && regExp[i + 1] == '(')
+                       || (regExp[i] == ')' && !RegexOperators.IsOperator(regExp[i + 1]))
+                       || (RegexOperators.IsQuantifier(regExp[i]) && !RegexOperators.IsOperator(regExp[i + 1]))
+                       || (RegexOperators.IsQuantifier(regExp[i]) && regExp[i + 1] == '(')
+                       || (regExp[i] == ')' && regExp[i + 1] == '(')
+                       || (regExp[i] == ']' && regExp[i + 1] == '[')
+                        )
                     ) result += (char)1;
             }
             //Add the last character of the regexp to the result
@@ -298,10 +324,37 @@ namespace ReQuizCommon
             //Preprocess the expression
             regExp = Preprocess(regExp);
 
+            bool insideGroup = false;
+            string currCharacterGroup = "";
+
             //Traverse the expression character-by-character
             //Expression already set up so that one character is one token
             foreach (char currChar in regExp)
             {
+                //If a character group opened, set the flag and get the next character
+                if (currChar == '[')
+                {
+                    insideGroup = true;
+                    continue;
+                }
+
+                //If a character group has closed, unset the flag and submit the characters
+                //inside the bracket to a character set constructor
+                if (currChar == ']')
+                {
+                    insideGroup = false;
+                    operandStack.Push(new NFAFragment(new NFACharacterSet(currCharacterGroup)));
+                    currCharacterGroup = "";
+                    continue;
+                }
+
+                //If we are inside a character group, the current character goes to it without
+                //any processing
+                if (insideGroup) {
+                    currCharacterGroup += currChar;
+                    continue;
+                }
+
                 if (!RegexOperators.IsOperator(currChar))
                 {
                     //For operands (characters), we simply create an NFA that matches the given letter

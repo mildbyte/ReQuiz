@@ -65,7 +65,7 @@ namespace ReQuizCommon
 
                 //The NFA needs a letter to go further
                 //Append the letter to the output and take the next state
-                result += ((NFACharacterSet)currState).RandomCharacter();
+                result += ((NFACharacterSet)currState).RandomCharacter(randGen);
                 currState = ((NFACharacterSet)currState).nextState;
             }
 
