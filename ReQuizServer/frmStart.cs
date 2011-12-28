@@ -24,5 +24,13 @@ namespace ReQuizServer
             this.Hide();
             serverForm.Show();
         }
+
+        private void nudNoQuestions_ValueChanged(object sender, EventArgs e)
+        {
+            //No point in selecting more hints than there are questions,
+            //as every question has only one hing
+
+            nudNoHints.Maximum = nudNoQuestions.Value;
+        }
     }
 }

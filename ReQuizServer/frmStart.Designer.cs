@@ -134,6 +134,7 @@
             0,
             0,
             0});
+            this.nudNoQuestions.ValueChanged += new System.EventHandler(this.nudNoQuestions_ValueChanged);
             // 
             // lblServerPort
             // 
