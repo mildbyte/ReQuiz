@@ -61,8 +61,7 @@ namespace ReQuizServer
             regex = RegexGenerator.GenerateExpression(elementNumber);
             parsedRegex = new Regex(regex);
         }
-
-
+ 
         /// <summary>
         /// Determines whether the answer given by the user is correct
         /// </summary>

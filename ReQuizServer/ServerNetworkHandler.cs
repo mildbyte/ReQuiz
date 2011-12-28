@@ -12,6 +12,15 @@ using System.IO;
 namespace ReQuizServer
 {
     /// <summary>
+    /// Gets thrown when the client sends an invalid command to the server
+    /// </summary>
+    public class ClientInvalidCommandException : ApplicationException
+    {
+        public ClientInvalidCommandException() { }
+        public ClientInvalidCommandException(string message) : base(message) { }
+    }
+
+    /// <summary>
     /// Event arguments for the ServerLog event
     /// </summary>
     public class ServerLogEventArgs : EventArgs
@@ -110,6 +119,10 @@ namespace ReQuizServer
 
                 //The first line sent from the client is the command, followed by username.
                 string[] commands = clientReader.ReadLine().Split();
+
+                //If the first line is any different, stop the communication
+                if (commands.Length != 2) throw new ClientInvalidCommandException();
+
                 string username = commands[1];
 
                 //There are no identification mechanisms here because the username
@@ -118,7 +131,7 @@ namespace ReQuizServer
                 //relevant strings to the server, changing the username and taking the quiz
                 //twice , but this would quickly be detected when the server would report
                 //more users than intended taking the quiz
-                
+
                 serverThread.ReportProgress(0, clientAddress + " identified as " + username);
 
                 if (commands[0] == "QSTN")
@@ -157,9 +170,18 @@ namespace ReQuizServer
                         clientWriter.WriteLine("OKAY");
                         clientWriter.Flush();
                         int correctAnswers = 0;
+                        int hintsUsed = 0;
 
                         //Read the amount of hints used by the client
-                        int hintsUsed = int.Parse(clientReader.ReadLine());
+                        try
+                        {
+                            hintsUsed = int.Parse(clientReader.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            //The client send a text string instead, stop the connection
+                            throw new ClientInvalidCommandException();
+                        }
 
                         //The answers are sent in the same order, so we iterate
                         //through the original quiz question objects which
@@ -194,10 +216,24 @@ namespace ReQuizServer
                         results[username] = clientResult;
                     }
                 }
-                
-            } catch (SocketException ex) {
+                else
+                {
+                    //Unsupported command from the client
+                    throw new ClientInvalidCommandException();
+                }
+
+            }
+            catch (SocketException ex)
+            {
                 //Report any connection problems
-                serverThread.ReportProgress(0, "Error while communicating with " + clientAddress + " (either network problem or faulty client version, exception reported: \"" + ex.Message + "\")");
+                serverThread.ReportProgress(0, 
+                    "Network problem while communicating with " + clientAddress +
+                    " (exception reported: \"" + ex.Message + "\")");
+            }
+            catch (ClientInvalidCommandException)
+            {
+                serverThread.ReportProgress(0,
+                    "Invalid data received from " + clientAddress + " probably due to faulty client version ");
             }
 
             //Close the connection to the client
