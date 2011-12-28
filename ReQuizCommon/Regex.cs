@@ -6,6 +6,15 @@ using System.Text;
 namespace ReQuizCommon
 {
     /// <summary>
+    /// Gets thrown when the engine failed to compile the given expression into an NFA
+    /// </summary>
+    public class RegexCompileException : ApplicationException
+    {
+        public RegexCompileException() { }
+        public RegexCompileException(string message) : base(message) { }
+    }
+
+    /// <summary>
     /// A basic regular expression engine
     /// </summary>
     public class Regex
@@ -131,11 +140,22 @@ namespace ReQuizCommon
         public Regex(string regExp)
         {
             //Initialisation
-
             textView = regExp;
 
-            //Preprocess the regular expression and compile it into an NFA
-            resNFA = NFABuilder.CreateNFA(regExp);
+            try
+            {
+                //Preprocess the regular expression and compile it into an NFA
+                resNFA = NFABuilder.CreateNFA(regExp);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                //Exception while creating the NFA, the regular expression must be invalid
+                throw new RegexCompileException();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new RegexCompileException();
+            }
         }
     }
 }

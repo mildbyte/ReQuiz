@@ -13,7 +13,7 @@ namespace ReQuizCommon
         CharSet,
         Split,
         Match
-    };
+    }
 
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace ReQuizCommon
         /// </summary>
         /// <param name="toConnect">The NFA to connect to</param>
         void Connect(INFAState toConnect);
-    };
+    }
 
 
     /// <summary>
@@ -140,7 +140,7 @@ namespace ReQuizCommon
         {
             if (nextState == null) nextState = toConnect;
         }
-    };
+    }
 
     /// <summary>
     /// Defines a NFA that has two different outputs based on what input it receives
@@ -184,7 +184,7 @@ namespace ReQuizCommon
             nextState1 = next1;
             nextState2 = next2;
         }
-    };
+    }
 
 
     /// <summary>
@@ -201,7 +201,7 @@ namespace ReQuizCommon
         public void Connect(INFAState toConnect)
         {
         }
-    };
+    }
 
 
     /// <summary>
@@ -246,7 +246,7 @@ namespace ReQuizCommon
             unboundStates = new List<INFAState>();
             unboundStates.Add(state);
         }
-    };
+    }
     
     
     /// <summary>
@@ -273,8 +273,6 @@ namespace ReQuizCommon
         /// <returns>The preprocessed regular expression</returns>
         private static string Preprocess(string regExp)
         {
-            //TODO: character group support - fix or eliminate completely?
-
             //Traverse the original expression
             //Look at the current and the next character, copy the current into the new string
             //If we need to insert a concat operator between them, add the operator into the new string
