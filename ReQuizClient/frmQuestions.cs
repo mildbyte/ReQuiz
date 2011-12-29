@@ -80,7 +80,8 @@ namespace ReQuizClient
             renderedQuestions[0].Show();
             UpdateStatusBar();
 
-            btnNextQuestion.Select();
+            //Focus on the first question's answer field
+            quizQuestions[0].FocusOnAnswerField();
         }
 
         /// <summary>
@@ -106,6 +107,9 @@ namespace ReQuizClient
             //Show the number of hints available and progress through the quiz
             lblHints.Text = "Hints: " + (quizParameters.hintsAllowed - hintsUsed).ToString();
             lblQuestionNumber.Text = currQuestionID + 1 + "/" + quizQuestions.Count();
+
+            //Focus on the control that would input the user's answer
+            quizQuestions[currQuestionID].FocusOnAnswerField();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

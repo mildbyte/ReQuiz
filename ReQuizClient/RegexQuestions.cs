@@ -165,6 +165,14 @@ namespace ReQuizClient
             txtHint.Text = "Hint: " + new string(randomAnswer);
             txtHint.Show();
         }
+
+        /// <summary>
+        /// Selects the textbox for the answer
+        /// </summary>
+        public void FocusOnAnswerField()
+        {
+            txtAnswer.Select();
+        }
     }
 
 
@@ -323,6 +331,13 @@ namespace ReQuizClient
             {
                 options[i] = splitOptions[i + 1];
             }
+        }
+
+        /// <summary>
+        /// Focuses on the first radio button
+        /// </summary>
+        public void FocusOnAnswerField() {
+            displayedOptions[0].Select();
         }
     }
 }

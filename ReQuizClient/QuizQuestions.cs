@@ -75,5 +75,10 @@ namespace ReQuizClient
         /// Shows a hint to this question to the user
         /// </summary>
         void DisplayHint();
+
+        /// <summary>
+        /// Focuses the user's input on the answer field (e.g. the answer textbox)
+        /// </summary>
+        void FocusOnAnswerField();
     }
 }

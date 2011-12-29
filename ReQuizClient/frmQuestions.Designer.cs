@@ -42,7 +42,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(138, 25);
             this.btnSubmit.TabIndex = 0;
-            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.Text = "&Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
@@ -52,7 +52,7 @@
             this.btnNextQuestion.Name = "btnNextQuestion";
             this.btnNextQuestion.Size = new System.Drawing.Size(138, 25);
             this.btnNextQuestion.TabIndex = 0;
-            this.btnNextQuestion.Text = "Next >>";
+            this.btnNextQuestion.Text = "&Next >>";
             this.btnNextQuestion.UseVisualStyleBackColor = true;
             this.btnNextQuestion.Click += new System.EventHandler(this.btnNextQuestion_Click);
             // 
@@ -62,7 +62,7 @@
             this.btnPrevQuestion.Name = "btnPrevQuestion";
             this.btnPrevQuestion.Size = new System.Drawing.Size(138, 25);
             this.btnPrevQuestion.TabIndex = 0;
-            this.btnPrevQuestion.Text = "<< Previous";
+            this.btnPrevQuestion.Text = "<< &Previous";
             this.btnPrevQuestion.UseVisualStyleBackColor = true;
             this.btnPrevQuestion.Click += new System.EventHandler(this.btnPrevQuestion_Click);
             // 
@@ -82,7 +82,7 @@
             this.btnHint.Name = "btnHint";
             this.btnHint.Size = new System.Drawing.Size(138, 25);
             this.btnHint.TabIndex = 0;
-            this.btnHint.Text = "Hint";
+            this.btnHint.Text = "&Hint";
             this.btnHint.UseVisualStyleBackColor = true;
             this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
             // 
