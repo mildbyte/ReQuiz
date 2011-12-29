@@ -29,15 +29,8 @@ namespace ReQuizServer
 
         private void LogEventHandler(object sender, ServerLogEventArgs e)
         {
-            //Pass the event to the actual logging procedure
-            LogEvent(e.Message);
-        }
-
-        private void LogEvent(string toLog)
-        {
-            //Append the time and write the log string to the output
-            txtLog.Text += System.DateTime.Now.ToString() + " " + toLog + Environment.NewLine;
-            txtLog.ScrollToCaret();
+            //Append the time and write the log text to the listview
+            lvLog.Items.Add(System.DateTime.Now.ToLongTimeString() + " " + e.Message);
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
