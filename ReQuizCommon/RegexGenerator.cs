@@ -5,14 +5,19 @@ using System.Text;
 
 namespace ReQuizCommon
 {
+    /// <summary>
+    /// Generates a random regular expression
+    /// </summary>
     public class RegexGenerator
     {
+        //Random number generator
         static private Random randGen = new Random();
 
+        /// <summary>
+        /// Generates a random alphanumeric character
+        /// </summary>
         public static char RandomCharacter()
         {
-            //Generates a random alphanumeric character
-
             //There are 62 alphanumeric characters (26*2 letters + 10 digits)
             int code = randGen.Next(62);
 
@@ -26,11 +31,12 @@ namespace ReQuizCommon
             return (char)(code + 61);
         }
 
+        /// <summary>
+        /// Generates a random quantifier (appended after an expression to repeat it)
+        /// </summary>
+        /// <returns>Either ?, * or +</returns>
         private static char RandomQuantifier()
         {
-            //Generates a random quantifier (appended after an expression to repeat it)
-            //3 options: ?, *, +
-
             int type = randGen.Next(3);
 
             //Output the character based on the value of the random number
@@ -42,11 +48,12 @@ namespace ReQuizCommon
             }
         }
 
+        /// <summary>
+        /// Generates several alphanumeric characters with randomly placed quantifiers
+        /// </summary>
+        /// <param name="length">Length of the generated string</param>
         private static string GenerateCharacterSet(int length)
         {
-            //Generates several alphanumeric characters with
-            //randomly placed quantifiers
-
             string result = "";
 
             for (int i = 0; i < length; i++)
@@ -61,17 +68,19 @@ namespace ReQuizCommon
             return result;
         }
 
+        /// <summary>
+        /// Generates an expression of type (expression|expression...|expression)
+        /// Also can add quantifier to the result (probability 10%)
+        /// If only one expression in brackets, then the quantifier is certainly added
+        /// </summary>
+        /// <param name="amount">Amount of expressions inside the group</param>
         private static string GenerateAlternateGroups(int amount)
         {
-            //Generates an expression of type (expression|expression...|expression)
-            //Also can add quantifier to the result (probability 10%)
-            //If only one expression in brackets, then the quantifier is certainly added
-
             string result = "(";
 
             //If only one expression in brackets, it should be longer than 1 and
             //the brackets should have a quantifier after them (otherwise, they
-            //could have been left out.
+            //could have been left out).
             if (amount == 1)
             {
                 result += GenerateCharacterSet(randGen.Next(2, 5));
@@ -99,16 +108,18 @@ namespace ReQuizCommon
             return result;
         }
 
-        public static string GenerateExpression(int elementCount)
+        /// <summary>
+        /// Generates a random regular expression out of elementNumber elements.
+        /// One element - either a set of letters with random quantifiers
+        /// or a group of (setofletters|setofletters...)
+        /// </summary>
+        /// <param name="elementNumber">Number of elements in the generated expression</param>
+        /// <returns></returns>
+        public static string GenerateExpression(int elementNumber)
         {
-            //Generates a random regular expression out of elementCount elements
-            //one element - either a set of letters with random quantifiers
-            //or a group of (setofletters|setofletters...)
-
             string newExpression = "";
 
-        
-            for (int i = 0; i < elementCount; i++)
+            for (int i = 0; i < elementNumber; i++)
             {
                 //50/50 chance of the next element being a group or a simple set        
                 if (randGen.Next(2) == 0)
