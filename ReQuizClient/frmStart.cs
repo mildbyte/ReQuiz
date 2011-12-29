@@ -102,6 +102,8 @@ namespace ReQuizClient
             //When the question form will be closed, request it to pass the user's answers back
             questForm.QuizCompleted += OnQuizCompleted;
             questForm.FormClosed += OnQuestionFormClose;
+
+            questForm.Show();
         }
 
         private void OnQuizCompleted(object sender, QuizCompletedEventArgs e)

@@ -115,6 +115,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuestions_FormClosing);
+            this.Load += new System.EventHandler(this.frmQuestions_Load);
             this.ResumeLayout(false);
 
         }

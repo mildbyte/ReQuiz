@@ -28,6 +28,9 @@ namespace ReQuizClient
 
         //Number of hints already used up
         private int hintsUsed;
+
+        //Gets set to True after all questions have been parsed and displayed
+        private bool startupSuccessful = false;
         
         /// <summary>
         /// Gets thrown when the user completes the quiz and asks to submit the questions
@@ -43,45 +46,6 @@ namespace ReQuizClient
             renderedQuestions = new List<Panel>();
             hintsUsed = 0;
             currQuestionID = 0;
-
-            //Fonts used to display the question and the answer are set up here to make
-            //it easier to change the application style
-            Font questionFont = new Font("Tahoma", 10F);
-            Font answerFont = new Font("Tahoma", 10F);
-
-            MessageBox.Show("This test has " + quizParameters.questions.Count + " questions." + Environment.NewLine +
-            "You are allowed " + quizParameters.hintsAllowed + " hints.");
-
-            //Parse the raw questions and render them to the panels
-            foreach (QuizQuestionRaw question in quizParameters.questions) {
-                //Parse the question
-                IQuizQuestion parsedQuestion = RegexQuestions.CreateQuestion(question);
-
-                //Create a panel for it
-                Panel thisQuestionPanel = new Panel();
-                thisQuestionPanel.Parent = this;
-                thisQuestionPanel.Left = 0;
-                thisQuestionPanel.Width = this.ClientRectangle.Width;
-                thisQuestionPanel.Top = 0;
-                thisQuestionPanel.Height = this.Height - 20;
-                this.Controls.Add(thisQuestionPanel);
-
-                //Each question's panel is hidden in the beginning
-                thisQuestionPanel.Hide();
-
-                //Render the question to this panel and store it in the memory
-                parsedQuestion.Render(thisQuestionPanel, questionFont, answerFont);
-                quizQuestions.Add(parsedQuestion);
-                renderedQuestions.Add(thisQuestionPanel);
-            }
-            
-            //Show the form, the first question and the needed buttons
-            this.Show();
-            renderedQuestions[0].Show();
-            UpdateStatusBar();
-
-            //Focus on the first question's answer field
-            quizQuestions[0].FocusOnAnswerField();
         }
 
         /// <summary>
@@ -168,10 +132,71 @@ namespace ReQuizClient
 
         private void frmQuestions_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Form failed to start normally, no need to ask the user
+            if (!startupSuccessful) return;
+
             //Confirm the user's intentions
             DialogResult choice = MessageBox.Show("Are you sure you want to exit this quiz without submitting your answers?",
                 "ReQuiz", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = (choice == DialogResult.No);
+        }
+
+        private void frmQuestions_Load(object sender, EventArgs e)
+        {
+            //Fonts used to display the question and the answer are set up here to make
+            //it easier to change the application style
+            Font questionFont = new Font("Tahoma", 10F);
+            Font answerFont = new Font("Tahoma", 10F);
+
+            //Parse the raw questions and render them to the panels
+            foreach (QuizQuestionRaw question in quizParameters.questions)
+            {
+                //Parse the question
+                try
+                {
+                    IQuizQuestion parsedQuestion = RegexQuestions.CreateQuestion(question);
+
+                    //Create a panel for it
+                    Panel thisQuestionPanel = new Panel();
+                    thisQuestionPanel.Parent = this;
+                    thisQuestionPanel.Left = 0;
+                    thisQuestionPanel.Width = this.ClientRectangle.Width;
+                    thisQuestionPanel.Top = 0;
+                    thisQuestionPanel.Height = this.Height - 20;
+                    this.Controls.Add(thisQuestionPanel);
+
+                    //Each question's panel is hidden in the beginning
+                    thisQuestionPanel.Hide();
+
+                    //Render the question to this panel and store it in the memory
+                    parsedQuestion.Render(thisQuestionPanel, questionFont, answerFont);
+                    quizQuestions.Add(parsedQuestion);
+                    renderedQuestions.Add(thisQuestionPanel);
+                }
+                catch (UnknownQuestionTypeException)
+                {
+                    MessageBox.Show("Unsupported question detected among questions fetched from the server.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Close();
+                    return;
+                }
+            }
+
+            //Show the information about the quiz
+            MessageBox.Show("This test has " + quizParameters.questions.Count + " questions." + Environment.NewLine +
+                "You are allowed " + quizParameters.hintsAllowed + " hints.");
+
+
+            //Show the form, the first question and the needed buttons
+            this.Show();
+            renderedQuestions[0].Show();
+            UpdateStatusBar();
+
+            //Focus on the first question's answer field
+            quizQuestions[0].FocusOnAnswerField();
+
+            //All the startup procedures were successful, set the flag
+            startupSuccessful = true;
         }
     }
 

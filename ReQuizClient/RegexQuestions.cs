@@ -9,6 +9,15 @@ using ReQuizCommon;
 namespace ReQuizClient
 {
     /// <summary>
+    /// Occurs when the parser encounters an unknown type of question
+    /// </summary>
+    class UnknownQuestionTypeException : ApplicationException
+    {
+        public UnknownQuestionTypeException() { }
+        public UnknownQuestionTypeException(string message) : base(message) { }
+    }
+
+    /// <summary>
     /// Defines a ReQuiz parser for regular expression questions
     /// </summary>
     class RegexQuestions
@@ -24,9 +33,13 @@ namespace ReQuizClient
             {
                 return new MatchStringQuestion(question.parameters);
             }
-            else
+            else if (question.type == "CMATCH")
             {
                 return new ChooseMatchQuestion(question.parameters);
+            }
+            else
+            {
+                throw new UnknownQuestionTypeException();
             }
         }
     }
