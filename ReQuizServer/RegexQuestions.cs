@@ -19,22 +19,23 @@ namespace ReQuizServer
         /// Generates a given amount of random questions
         /// </summary>
         /// <param name="amount">Amount of questions to generate</param>
+        /// <param name="minLength">Minimum amount of elements in the regular expression</param>
+        /// <param name="maxLength">Maximum amount of elements in the regular expression</param>
         /// <returns>A list of generated questions</returns>
-        public static List<IQuizQuestion> GenerateQuestions(int amount)
+        public static List<IQuizQuestion> GenerateQuestions(int amount, int minLength, int maxLength)
         {
             List<IQuizQuestion> result = new List<IQuizQuestion>(amount);
 
             for (int i = 0; i < amount; i++)
             {
                 //Pick a random question type and generate the needed question
-                switch (randGen.Next(3))
+                switch (randGen.Next(2))
                 {
-                    case 0: result.Add(new MatchStringQuestion(3)); break;
-                    case 1: result.Add(new ChooseMatchQuestion(3)); break;
-                    case 2: result.Add(new MatchStringQuestion(3)); break;
+                    case 0: result.Add(new MatchStringQuestion(randGen.Next(minLength, maxLength + 1))); break;
+                    case 1: result.Add(new ChooseMatchQuestion(randGen.Next(minLength, maxLength + 1))); break;
+                    //case 2: result.Add(new MatchStringQuestion(3)); break;
                 }
             }
-
             return result;
         }
     }

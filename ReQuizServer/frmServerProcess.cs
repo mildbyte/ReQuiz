@@ -14,12 +14,12 @@ namespace ReQuizServer
     {
         ServerNetworkHandler serverHandler;
 
-        public frmServerProcess(int portNumber, int noQuestions, int noHints)
+        public frmServerProcess(int portNumber, int noQuestions, int noHints, int minRegexLen, int maxRegexLen)
         {
             InitializeComponent();
 
             //Generate the question list
-            List<IQuizQuestion> questions = RegexQuestions.GenerateQuestions(noQuestions);
+            List<IQuizQuestion> questions = RegexQuestions.GenerateQuestions(noQuestions, minRegexLen, maxRegexLen);
 
             //Set up the server and start it
             serverHandler = new ServerNetworkHandler(questions, noHints, portNumber);

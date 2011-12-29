@@ -20,7 +20,8 @@ namespace ReQuizServer
         {
             //Create the main form that displays the server status and show it
             frmServerProcess serverForm = new frmServerProcess((int)nudPortNumber.Value,
-                (int)nudNoQuestions.Value, (int)nudNoHints.Value);
+                (int)nudNoQuestions.Value, (int)nudNoHints.Value,
+                (int)nudReLenMin.Value, (int)nudReLenMax.Value);
             this.Hide();
             serverForm.Show();
         }
@@ -31,6 +32,18 @@ namespace ReQuizServer
             //as every question has only one hing
 
             nudNoHints.Maximum = nudNoQuestions.Value;
+        }
+
+        private void nudReLenMax_ValueChanged(object sender, EventArgs e)
+        {
+            //Adjust the bounds on the minimum regular expression length
+            nudReLenMin.Maximum = nudReLenMax.Value;
+        }
+
+        private void nudReLenMin_ValueChanged(object sender, EventArgs e)
+        {
+            //Adjust the bounds on the maximim regular expression length
+            nudReLenMax.Minimum = nudReLenMin.Value;
         }
     }
 }
