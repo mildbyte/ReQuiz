@@ -28,9 +28,8 @@ namespace ReQuizServer
             //Copy the results to the output window
             foreach(KeyValuePair<string, ReQuizResult> quizScore in results)
             {
-                txtResults.Text += quizScore.Key + " - used " 
-                    + quizScore.Value.hintsUsed + " hints, total score: "
-                    + quizScore.Value.mark + Environment.NewLine;
+                lvResults.Items.Add(new ListViewItem(new string[]{quizScore.Key, 
+                    quizScore.Value.hintsUsed.ToString(), quizScore.Value.mark.ToString()}));
             }
         }
 

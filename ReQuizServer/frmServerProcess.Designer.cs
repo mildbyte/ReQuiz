@@ -30,6 +30,8 @@
         {
             this.btnFinish = new System.Windows.Forms.Button();
             this.lvLog = new System.Windows.Forms.ListView();
+            this.chTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chEvent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnFinish
@@ -44,12 +46,26 @@
             // 
             // lvLog
             // 
+            this.lvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chTime,
+            this.chEvent});
+            this.lvLog.GridLines = true;
             this.lvLog.Location = new System.Drawing.Point(12, 12);
             this.lvLog.Name = "lvLog";
             this.lvLog.Size = new System.Drawing.Size(490, 331);
             this.lvLog.TabIndex = 3;
             this.lvLog.UseCompatibleStateImageBehavior = false;
-            this.lvLog.View = System.Windows.Forms.View.List;
+            this.lvLog.View = System.Windows.Forms.View.Details;
+            // 
+            // chTime
+            // 
+            this.chTime.Text = "Time";
+            this.chTime.Width = 100;
+            // 
+            // chEvent
+            // 
+            this.chEvent.Text = "Event";
+            this.chEvent.Width = 385;
             // 
             // frmServerProcess
             // 
@@ -73,5 +89,7 @@
 
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.ListView lvLog;
+        private System.Windows.Forms.ColumnHeader chTime;
+        private System.Windows.Forms.ColumnHeader chEvent;
     }
 }

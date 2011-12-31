@@ -30,7 +30,7 @@ namespace ReQuizServer
         private void LogEventHandler(object sender, ServerLogEventArgs e)
         {
             //Append the time and write the log text to the listview
-            lvLog.Items.Add(System.DateTime.Now.ToLongTimeString() + " " + e.Message);
+            lvLog.Items.Add(new ListViewItem(new string[]{DateTime.Now.ToLongTimeString(), e.Message}));
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
