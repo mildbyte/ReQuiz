@@ -47,12 +47,12 @@ namespace ReQuizServer
                 StreamWriter fileWriter = new StreamWriter(outFile);
 
                 //Output the header
-                fileWriter.WriteLine("\"Username\";\"Hints used\";\"Total score\"");
+                fileWriter.WriteLine("\"Username\",\"Hints used\",\"Total score\"");
 
                 //Output every user's result, enclosed by double quotes and separated by semicolons
                 foreach(KeyValuePair<string, ReQuizResult> quizScore in results) {
-                    fileWriter.WriteLine("\"" + quizScore.Key + "\";\""
-                        + quizScore.Value.hintsUsed + "\";\""
+                    fileWriter.WriteLine("\"" + quizScore.Key + "\",\""
+                        + quizScore.Value.hintsUsed + "\",\""
                         + quizScore.Value.mark + "\"");
                 }
 
