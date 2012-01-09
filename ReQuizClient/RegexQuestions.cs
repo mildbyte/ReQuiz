@@ -261,6 +261,7 @@ namespace ReQuizClient
                 newOptionButton.Font = answerFont;
                 newOptionButton.Top = txtQuestion.Bottom + 5 + i * (int)answerFont.Size * 2;
                 newOptionButton.Left = 10;
+                newOptionButton.AutoSize = true;
 
                 //Store the created button and place it onto the panel
                 displayedOptions[i] = newOptionButton;
