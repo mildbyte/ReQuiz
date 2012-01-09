@@ -106,7 +106,7 @@
             this.MinimizeBox = false;
             this.Name = "frmFinish";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Results";
+            this.Text = "ReQuiz Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFinish_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFinish_FormClosed);
             this.ResumeLayout(false);

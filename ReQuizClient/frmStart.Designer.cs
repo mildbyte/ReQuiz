@@ -123,7 +123,7 @@
             this.MinimizeBox = false;
             this.Name = "frmStart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz";
+            this.Text = "ReQuiz Client";
             this.Load += new System.EventHandler(this.frmStart_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

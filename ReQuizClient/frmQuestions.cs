@@ -79,7 +79,7 @@ namespace ReQuizClient
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             //Confirm the user's intentions
-            if (MessageBox.Show("Are you sure you want to submit your answers for marking?", "Answers",
+            if (MessageBox.Show("You can submit your answers only once. Are you sure you want to submit your answers for marking?", "ReQuiz Client",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
 
             //Get the user's answer to every question
@@ -137,7 +137,7 @@ namespace ReQuizClient
 
             //Confirm the user's intentions
             DialogResult choice = MessageBox.Show("Are you sure you want to exit this quiz without submitting your answers?",
-                "ReQuiz", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                "ReQuiz Client", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = (choice == DialogResult.No);
         }
 
@@ -176,7 +176,7 @@ namespace ReQuizClient
                 catch (UnknownQuestionTypeException)
                 {
                     MessageBox.Show("Unsupported question detected among questions fetched from the server.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "ReQuiz Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Close();
                     return;
                 }
@@ -184,7 +184,9 @@ namespace ReQuizClient
 
             //Show the information about the quiz
             MessageBox.Show("This test has " + quizParameters.questions.Count + " questions." + Environment.NewLine +
-                "You are allowed " + quizParameters.hintsAllowed + " hints.");
+                "You are allowed " + quizParameters.hintsAllowed + " hints." + Environment.NewLine +
+                "Each question is worth 2 marks." + Environment.NewLine + 
+                "Each hint deducts 1 mark from your total score.");
 
 
             //Show the form, the first question and the needed buttons

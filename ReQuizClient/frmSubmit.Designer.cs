@@ -89,7 +89,7 @@
             this.MinimizeBox = false;
             this.Name = "frmSubmit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz";
+            this.Text = "ReQuiz Client";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSubmit_FormClosed);
             this.ResumeLayout(false);
 

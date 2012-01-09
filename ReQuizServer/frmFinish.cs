@@ -77,7 +77,7 @@ namespace ReQuizServer
 
             //Else, ask the user
             e.Cancel = (MessageBox.Show("You have not exported the results. Are you sure you want to exit?",
-                        "ReQuiz", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
+                        "ReQuiz Server", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
                         == System.Windows.Forms.DialogResult.No);
         }
 
