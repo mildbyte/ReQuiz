@@ -35,7 +35,7 @@
             this.nudPortNumber = new System.Windows.Forms.NumericUpDown();
             this.nudNoHints = new System.Windows.Forms.NumericUpDown();
             this.nudNoQuestions = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTo = new System.Windows.Forms.Label();
             this.lblRegexLength = new System.Windows.Forms.Label();
             this.lblServerPort = new System.Windows.Forms.Label();
             this.lblNoHints = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.gbSettings.Controls.Add(this.nudPortNumber);
             this.gbSettings.Controls.Add(this.nudNoHints);
             this.gbSettings.Controls.Add(this.nudNoQuestions);
-            this.gbSettings.Controls.Add(this.label1);
+            this.gbSettings.Controls.Add(this.lblTo);
             this.gbSettings.Controls.Add(this.lblRegexLength);
             this.gbSettings.Controls.Add(this.lblServerPort);
             this.gbSettings.Controls.Add(this.lblNoHints);
@@ -192,14 +192,14 @@
             0});
             this.nudNoQuestions.ValueChanged += new System.EventHandler(this.nudNoQuestions_ValueChanged);
             // 
-            // label1
+            // lblTo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(299, 114);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "to";
+            this.lblTo.AutoSize = true;
+            this.lblTo.Location = new System.Drawing.Point(299, 114);
+            this.lblTo.Name = "lblTo";
+            this.lblTo.Size = new System.Drawing.Size(23, 20);
+            this.lblTo.TabIndex = 0;
+            this.lblTo.Text = "to";
             // 
             // lblRegexLength
             // 
@@ -286,7 +286,7 @@
         private System.Windows.Forms.NumericUpDown nudReLenMin;
         private System.Windows.Forms.NumericUpDown nudReLenMax;
         private System.Windows.Forms.Label lblRegexLength;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTo;
     }
 }
 
