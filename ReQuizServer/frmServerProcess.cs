@@ -48,5 +48,10 @@ namespace ReQuizServer
             frmFinish finishForm = new frmFinish(results);
             finishForm.Show();
         }
+
+        private void frmServerProcess_Load(object sender, EventArgs e)
+        {
+            ttfrmServerProcess.SetToolTip(btnFinish, "Stops the testing and marks the answers");
+        }
     }
 }

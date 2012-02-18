@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblConnectionProgress = new System.Windows.Forms.Label();
             this.lblResult = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ttfrmSubmit = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblTitle
@@ -91,6 +93,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz Client";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSubmit_FormClosed);
+            this.Load += new System.EventHandler(this.frmSubmit_Load);
             this.ResumeLayout(false);
 
         }
@@ -101,5 +104,6 @@
         private System.Windows.Forms.Label lblConnectionProgress;
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ToolTip ttfrmSubmit;
     }
 }

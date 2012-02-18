@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnNextQuestion = new System.Windows.Forms.Button();
             this.btnPrevQuestion = new System.Windows.Forms.Button();
             this.lblQuestionNumber = new System.Windows.Forms.Label();
             this.btnHint = new System.Windows.Forms.Button();
             this.lblHints = new System.Windows.Forms.Label();
+            this.ttfrmQuestions = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnSubmit
@@ -128,6 +130,7 @@
         private System.Windows.Forms.Label lblQuestionNumber;
         private System.Windows.Forms.Button btnHint;
         private System.Windows.Forms.Label lblHints;
+        private System.Windows.Forms.ToolTip ttfrmQuestions;
 
     }
 }

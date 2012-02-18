@@ -45,5 +45,10 @@ namespace ReQuizServer
             //Adjust the bounds on the maximim regular expression length
             nudReLenMax.Minimum = nudReLenMin.Value;
         }
+
+        private void frmStart_Load(object sender, EventArgs e)
+        {
+            ttfrmStart.SetToolTip(btnStart, "Starts the testing server");
+        }
     }
 }

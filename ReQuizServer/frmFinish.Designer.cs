@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.sfdExportMarks = new System.Windows.Forms.SaveFileDialog();
@@ -35,6 +36,7 @@
             this.chUsername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chHints = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chMark = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ttfrmFinish = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnExit
@@ -109,6 +111,7 @@
             this.Text = "ReQuiz Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFinish_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFinish_FormClosed);
+            this.Load += new System.EventHandler(this.frmFinish_Load);
             this.ResumeLayout(false);
 
         }
@@ -122,6 +125,7 @@
         private System.Windows.Forms.ColumnHeader chUsername;
         private System.Windows.Forms.ColumnHeader chHints;
         private System.Windows.Forms.ColumnHeader chMark;
+        private System.Windows.Forms.ToolTip ttfrmFinish;
 
 
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
             this.gbSettings = new System.Windows.Forms.GroupBox();
             this.nudReLenMin = new System.Windows.Forms.NumericUpDown();
@@ -41,6 +42,7 @@
             this.lblNoHints = new System.Windows.Forms.Label();
             this.lblNoQuestions = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.ttfrmStart = new System.Windows.Forms.ToolTip(this.components);
             this.gbSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReLenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudReLenMax)).BeginInit();
@@ -261,6 +263,7 @@
             this.Name = "frmStart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz Server";
+            this.Load += new System.EventHandler(this.frmStart_Load);
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudReLenMin)).EndInit();
@@ -287,6 +290,7 @@
         private System.Windows.Forms.NumericUpDown nudReLenMax;
         private System.Windows.Forms.Label lblRegexLength;
         private System.Windows.Forms.Label lblTo;
+        private System.Windows.Forms.ToolTip ttfrmStart;
     }
 }
 

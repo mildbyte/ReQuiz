@@ -128,6 +128,8 @@ namespace ReQuizClient
         {
             //Focus on the address field at startup
             txtAddress.Select();
+
+            ttfrmStart.SetToolTip(btnConnect, "Fetches the quiz questions from the server");
         }
     }
 }

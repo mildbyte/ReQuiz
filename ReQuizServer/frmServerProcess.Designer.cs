@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnFinish = new System.Windows.Forms.Button();
             this.lvLog = new System.Windows.Forms.ListView();
             this.chTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chEvent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ttfrmServerProcess = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnFinish
@@ -81,6 +83,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReQuiz Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmServerProcess_FormClosing);
+            this.Load += new System.EventHandler(this.frmServerProcess_Load);
             this.ResumeLayout(false);
 
         }
@@ -91,5 +94,6 @@
         private System.Windows.Forms.ListView lvLog;
         private System.Windows.Forms.ColumnHeader chTime;
         private System.Windows.Forms.ColumnHeader chEvent;
+        private System.Windows.Forms.ToolTip ttfrmServerProcess;
     }
 }

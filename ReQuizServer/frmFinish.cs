@@ -86,5 +86,11 @@ namespace ReQuizServer
             //Close the remaining forms
             Application.Exit();
         }
+
+        private void frmFinish_Load(object sender, EventArgs e)
+        {
+            ttfrmFinish.SetToolTip(btnExport, "Export the marks into a CSV file");
+            ttfrmFinish.SetToolTip(btnExit, "Exit the application");
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblIPAddress = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.lblConnectionProgress = new System.Windows.Forms.Label();
             this.lblPort = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
+            this.ttfrmStart = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblTitle
@@ -139,6 +141,7 @@
         private System.Windows.Forms.Label lblConnectionProgress;
         private System.Windows.Forms.Label lblPort;
         private System.Windows.Forms.TextBox txtPort;
+        private System.Windows.Forms.ToolTip ttfrmStart;
     }
 }
 

@@ -123,7 +123,12 @@ namespace ReQuizClient
         }
 
         private void btnHint_Click(object sender, EventArgs e)
-        {   
+        {
+            //Confirm the user's intentions
+            DialogResult choice = MessageBox.Show("Using a hint will penalise you by 1 mark. Are you sure you want to use a hint?",
+               "ReQuiz Client", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (choice == DialogResult.No) return;
+
             //Request the question to display a hint and update the interface
             quizQuestions[currQuestionID].DisplayHint();
             hintsUsed++;
@@ -199,6 +204,11 @@ namespace ReQuizClient
 
             //All the startup procedures were successful, set the flag
             startupSuccessful = true;
+
+            ttfrmQuestions.SetToolTip(btnNextQuestion, "Advances to the next question of the quiz");
+            ttfrmQuestions.SetToolTip(btnPrevQuestion, "Goes back to the previous question of the quiz");
+            ttfrmQuestions.SetToolTip(btnHint, "Shows a hint to the question. The usage of a hint penalises you for 1 mark");
+            ttfrmQuestions.SetToolTip(btnSubmit, "Submits the answers to the server. You can only submit the answers once.");
         }
     }
 

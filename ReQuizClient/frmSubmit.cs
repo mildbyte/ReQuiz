@@ -83,5 +83,10 @@ namespace ReQuizClient
         {
             Application.Exit();
         }
+
+        private void frmSubmit_Load(object sender, EventArgs e)
+        {
+            ttfrmSubmit.SetToolTip(btnClose, "Exits the application");
+        }
     }
 }
