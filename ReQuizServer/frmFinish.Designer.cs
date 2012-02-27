@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFinish));
             this.btnExit = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.sfdExportMarks = new System.Windows.Forms.SaveFileDialog();
@@ -104,11 +105,12 @@
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmFinish";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz Server";
+            this.Text = "ReQuiz Server - Results";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFinish_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFinish_FormClosed);
             this.Load += new System.EventHandler(this.frmFinish_Load);

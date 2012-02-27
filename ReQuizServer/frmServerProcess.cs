@@ -13,6 +13,7 @@ namespace ReQuizServer
     public partial class frmServerProcess : Form
     {
         ServerNetworkHandler serverHandler;
+        int clientsCompletedTest;
 
         public frmServerProcess(int portNumber, int noQuestions, int noHints, int minRegexLen, int maxRegexLen)
         {
@@ -21,9 +22,12 @@ namespace ReQuizServer
             //Generate the question list
             List<IQuizQuestion> questions = RegexQuestions.GenerateQuestions(noQuestions, minRegexLen, maxRegexLen);
 
+            clientsCompletedTest = 0;
+
             //Set up the server and start it
             serverHandler = new ServerNetworkHandler(questions, noHints, portNumber);
             serverHandler.ServerLog += LogEventHandler;
+            serverHandler.ClientCompletedTest += ClientCompletedTestEventHandler;
             serverHandler.StartServer();
         }
 
@@ -31,6 +35,15 @@ namespace ReQuizServer
         {
             //Append the time and write the log text to the listview
             lvLog.Items.Add(new ListViewItem(new string[]{DateTime.Now.ToLongTimeString(), e.Message}));
+        }
+
+        /// <summary>
+        /// A client has completed the test, report this on the form
+        /// </summary>
+        private void ClientCompletedTestEventHandler(object sender, ClientCompletedTestEventArgs e)
+        {
+            clientsCompletedTest++;
+            lblNoCompletedTest.Text = "Completed the test: " + clientsCompletedTest.ToString();
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
@@ -41,6 +54,17 @@ namespace ReQuizServer
 
         private void frmServerProcess_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Confirm the user's intentions
+            if (MessageBox.Show("The test has been completed by " + clientsCompletedTest.ToString()
+                + " people. " + Environment.NewLine +
+                "If you decide to finish the test now, nobody else will be able to submit their answers."
+                + Environment.NewLine + "Are you sure you want to finish the test?", "ReQuiz",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
             //Get the results from the server
             ConcurrentDictionary<string, ReQuizResult> results = serverHandler.StopServer();
 

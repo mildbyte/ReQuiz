@@ -57,9 +57,9 @@ namespace ReQuizClient
             //Bring the hint button to the front in case it's hidden behind a panel
             btnHint.BringToFront();
 
-            //Show the hint button if the user hasn't used a hint for this question
+            //Enable the hint button if the user hasn't used a hint for this question
             //and hasn't used all available hints
-            btnHint.Visible = (hintsUsed < quizParameters.hintsAllowed) 
+            btnHint.Enabled = (hintsUsed < quizParameters.hintsAllowed) 
                 && (quizQuestions[currQuestionID].HintAvailable);
 
             //Enable the Next button if we haven't reached the last question

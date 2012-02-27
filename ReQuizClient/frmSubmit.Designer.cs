@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSubmit));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblConnectionProgress = new System.Windows.Forms.Label();
             this.lblResult = new System.Windows.Forms.Label();
@@ -87,11 +88,12 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblResult);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmSubmit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz Client";
+            this.Text = "ReQuiz Client - Results";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSubmit_FormClosed);
             this.Load += new System.EventHandler(this.frmSubmit_Load);
             this.ResumeLayout(false);

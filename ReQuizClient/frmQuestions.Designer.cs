@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmQuestions));
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnNextQuestion = new System.Windows.Forms.Button();
             this.btnPrevQuestion = new System.Windows.Forms.Button();
             this.lblQuestionNumber = new System.Windows.Forms.Label();
             this.btnHint = new System.Windows.Forms.Button();
             this.lblHints = new System.Windows.Forms.Label();
-            this.ttfrmQuestions = new System.Windows.Forms.ToolTip(this.components);
+            this.ttfrmQuestions = new System.Windows.Forms.ToolTip();
             this.SuspendLayout();
             // 
             // btnSubmit
@@ -111,11 +111,12 @@
             this.Controls.Add(this.btnNextQuestion);
             this.Controls.Add(this.btnSubmit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmQuestions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz Client";
+            this.Text = "ReQuiz Client - Questions";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuestions_FormClosing);
             this.Load += new System.EventHandler(this.frmQuestions_Load);
             this.ResumeLayout(false);

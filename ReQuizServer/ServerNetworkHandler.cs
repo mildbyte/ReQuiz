@@ -40,6 +40,11 @@ namespace ReQuizServer
     }
     public delegate void ServerLogEventHandler(object sender, ServerLogEventArgs e);
 
+    public class ClientCompletedTestEventArgs : EventArgs
+    {
+    }
+    public delegate void ClientCompletedTestEventHandler(object sender, ClientCompletedTestEventArgs e);
+
 
     /// <summary>
     /// Holds a result (mark and the amount of used hints) of one user
@@ -83,6 +88,11 @@ namespace ReQuizServer
         /// </summary>
         public event ServerLogEventHandler ServerLog;
 
+        /// <summary>
+        /// Gets raised when a client completes the test
+        /// </summary>
+        public event ClientCompletedTestEventHandler ClientCompletedTest;
+        
         /// <summary>
         /// Gets the local IPv4 address of the current computer
         /// </summary>
@@ -201,12 +211,13 @@ namespace ReQuizServer
                         //Don't allow negative marks
                         if (clientMark < 0) clientMark = 0;
 
-                        //Report the mark to the client and to the log
+                        //Report the mark to the client and to the log.
                         clientWriter.WriteLine(correctAnswers);
                         clientWriter.WriteLine(clientMark);
                         clientWriter.Flush();
                         serverThread.ReportProgress(0, "Marked " + username + "\'s answers: " +
                             correctAnswers + " correct, used " + hintsUsed + " hints, total score: " + clientMark);
+                        serverThread.ReportProgress(1);
 
                         //Store the results in the dictionary
                         //TODO: check if executes correctly with simultaneous users
@@ -281,8 +292,16 @@ namespace ReQuizServer
         /// </summary>
         private void LogEvent(object sender, ProgressChangedEventArgs e)
         {
-            if (ServerLog!=null)
-                ServerLog(this, new ServerLogEventArgs((string)e.UserState));
+            if (e.ProgressPercentage == 0)
+            {
+                if (ServerLog != null)
+                    ServerLog(this, new ServerLogEventArgs((string)e.UserState));
+            }
+            else
+            {
+                if (ClientCompletedTest != null)
+                    ClientCompletedTest(this, new ClientCompletedTestEventArgs());
+            }
         }
 
         /// <summary>
@@ -318,8 +337,12 @@ namespace ReQuizServer
             //Set up the background worker
             serverThread = new BackgroundWorker();
             serverThread.DoWork += ServerLoop;
-            serverThread.ProgressChanged += LogEvent;
             serverThread.WorkerSupportsCancellation = true;
+
+            //Normal use for the BackgroundWorker is to report progress in form of percentage.
+            //In this case, percentage denotes the type of log event (0 - log to the form, 1 - client completed the test)
+            //and the additional UserState parameter - the actual log event
+            serverThread.ProgressChanged += LogEvent;
             serverThread.WorkerReportsProgress = true;
 
             //Start the listening thread

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStart));
             this.btnStart = new System.Windows.Forms.Button();
             this.gbSettings = new System.Windows.Forms.GroupBox();
             this.nudReLenMin = new System.Windows.Forms.NumericUpDown();
@@ -157,11 +158,6 @@
             0,
             0,
             0});
-            this.nudNoHints.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.nudNoHints.Name = "nudNoHints";
             this.nudNoHints.Size = new System.Drawing.Size(120, 26);
             this.nudNoHints.TabIndex = 1;
@@ -258,11 +254,12 @@
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.btnStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmStart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ReQuiz Server";
+            this.Text = "ReQuiz Server - Startup";
             this.Load += new System.EventHandler(this.frmStart_Load);
             this.gbSettings.ResumeLayout(false);
             this.gbSettings.PerformLayout();
