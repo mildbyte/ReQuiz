@@ -59,10 +59,10 @@ namespace ReQuizClient
             {
                 shuffledIDs[i] = i;
             }
-            for (int i = 0; i < quizParameters.questions.Count; i++)
+            for (int i = quizParameters.questions.Count-1; i >= 0; i--)
             {
                 int tmp;
-                int pos = randGen.Next(quizParameters.questions.Count);
+                int pos = randGen.Next(i);
                 tmp = shuffledIDs[i];
                 shuffledIDs[i] = shuffledIDs[pos];
                 shuffledIDs[pos] = tmp;
