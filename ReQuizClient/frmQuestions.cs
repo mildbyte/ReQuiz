@@ -14,6 +14,8 @@ namespace ReQuizClient
     /// </summary>
     public partial class frmQuestions : Form
     {
+        private Random randGen;
+
         //The questions and rules for this quiz
         private QuizParameters quizParameters;
 
@@ -31,6 +33,9 @@ namespace ReQuizClient
 
         //Gets set to True after all questions have been parsed and displayed
         private bool startupSuccessful = false;
+
+        //shuffledIDs[i] - actual number of question i
+        private int[] shuffledIDs;
         
         /// <summary>
         /// Gets thrown when the user completes the quiz and asks to submit the questions
@@ -46,6 +51,22 @@ namespace ReQuizClient
             renderedQuestions = new List<Panel>();
             hintsUsed = 0;
             currQuestionID = 0;
+
+            //Generate the shuffled question IDs array
+            randGen = new Random();
+            shuffledIDs = new int[quizParameters.questions.Count];
+            for (int i = 0; i < quizParameters.questions.Count; i++)
+            {
+                shuffledIDs[i] = i;
+            }
+            for (int i = 0; i < quizParameters.questions.Count; i++)
+            {
+                int tmp;
+                int pos = randGen.Next(quizParameters.questions.Count);
+                tmp = shuffledIDs[i];
+                shuffledIDs[i] = shuffledIDs[pos];
+                shuffledIDs[pos] = tmp;
+            }
         }
 
         /// <summary>
@@ -60,7 +81,7 @@ namespace ReQuizClient
             //Enable the hint button if the user hasn't used a hint for this question
             //and hasn't used all available hints
             btnHint.Enabled = (hintsUsed < quizParameters.hintsAllowed) 
-                && (quizQuestions[currQuestionID].HintAvailable);
+                && (quizQuestions[shuffledIDs[currQuestionID]].HintAvailable);
 
             //Enable the Next button if we haven't reached the last question
             btnNextQuestion.Enabled = currQuestionID < quizQuestions.Count - 1;
@@ -73,7 +94,7 @@ namespace ReQuizClient
             lblQuestionNumber.Text = currQuestionID + 1 + "/" + quizQuestions.Count();
 
             //Focus on the control that would input the user's answer
-            quizQuestions[currQuestionID].FocusOnAnswerField();
+            quizQuestions[shuffledIDs[currQuestionID]].FocusOnAnswerField();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -103,9 +124,9 @@ namespace ReQuizClient
         private void btnPrevQuestion_Click(object sender, EventArgs e)
         {
             //Hide the current question panel and show the previous question panel
-            renderedQuestions[currQuestionID].Hide();
+            renderedQuestions[shuffledIDs[currQuestionID]].Hide();
             if (currQuestionID != 0) currQuestionID--;
-            renderedQuestions[currQuestionID].Show();
+            renderedQuestions[shuffledIDs[currQuestionID]].Show();
 
             //Update the interface
             UpdateStatusBar();
@@ -114,9 +135,9 @@ namespace ReQuizClient
         private void btnNextQuestion_Click(object sender, EventArgs e)
         {
             //Hide the current question panel and show the next one
-            renderedQuestions[currQuestionID].Hide();
+            renderedQuestions[shuffledIDs[currQuestionID]].Hide();
             if (currQuestionID != quizQuestions.Count - 1) currQuestionID++;
-            renderedQuestions[currQuestionID].Show();
+            renderedQuestions[shuffledIDs[currQuestionID]].Show();
 
             //Update the interface
             UpdateStatusBar();
@@ -130,7 +151,7 @@ namespace ReQuizClient
             if (choice == DialogResult.No) return;
 
             //Request the question to display a hint and update the interface
-            quizQuestions[currQuestionID].DisplayHint();
+            quizQuestions[shuffledIDs[currQuestionID]].DisplayHint();
             hintsUsed++;
             UpdateStatusBar();
         }
@@ -196,11 +217,11 @@ namespace ReQuizClient
 
             //Show the form, the first question and the needed buttons
             this.Show();
-            renderedQuestions[0].Show();
+            renderedQuestions[shuffledIDs[0]].Show();
             UpdateStatusBar();
 
             //Focus on the first question's answer field
-            quizQuestions[0].FocusOnAnswerField();
+            quizQuestions[shuffledIDs[0]].FocusOnAnswerField();
 
             //All the startup procedures were successful, set the flag
             startupSuccessful = true;
