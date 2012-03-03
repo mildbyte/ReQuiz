@@ -128,7 +128,9 @@ namespace ReQuizServer
                 serverThread.ReportProgress(0, "Inbound connection from " + clientAddress);
 
                 //The first line sent from the client is the command, followed by username.
-                string[] commands = clientReader.ReadLine().Split();
+                string buf = clientReader.ReadLine();
+                if (buf == null) throw new ClientInvalidCommandException();
+                string[] commands = buf.Split();
 
                 //If the first line is any different, stop the communication
                 if (commands.Length != 2) throw new ClientInvalidCommandException();
@@ -139,7 +141,7 @@ namespace ReQuizServer
                 //sent by the client software is the current Windows username.
                 //One could possibly reverse engineer the protocol and directly send the 
                 //relevant strings to the server, changing the username and taking the quiz
-                //twice , but this would quickly be detected when the server would report
+                //twice, but this would quickly be detected when the server would report
                 //more users than intended taking the quiz
 
                 serverThread.ReportProgress(0, clientAddress + " identified as " + username);
