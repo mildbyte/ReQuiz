@@ -171,7 +171,14 @@ namespace ReQuizServer
         /// <param name="answer">Answer to check</param>
         public bool MarkAnswer(string answer) 
         {
-            return (int.Parse(answer) == correctID);
+            try
+            {
+                return (int.Parse(answer) == correctID);
+            }
+            catch (FormatException ex)
+            {
+                return false;
+            }
         }
 
         /// <summary>

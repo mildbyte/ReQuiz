@@ -14,7 +14,7 @@ namespace ReQuizClient
     /// <summary>
     /// Fetches the questions from a quiz server
     /// </summary>
-    class QuestionReceiver
+    public class QuestionReceiver
     {
         //Background thread used to execute the operation
         private BackgroundWorker clientThread;

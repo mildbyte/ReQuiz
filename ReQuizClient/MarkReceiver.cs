@@ -14,7 +14,7 @@ namespace ReQuizClient
     /// <summary>
     /// Submits the answer to the ReQuiz server and receives the marks from it
     /// </summary>
-    class MarkReceiver
+    public class MarkReceiver
     {
         //Thread used to perform the operation
         private BackgroundWorker clientThread;
