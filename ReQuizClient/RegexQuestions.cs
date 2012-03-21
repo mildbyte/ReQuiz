@@ -348,10 +348,14 @@ namespace ReQuizClient
         }
 
         /// <summary>
-        /// Focuses on the first radio button
+        /// Focuses on the first radio button if no buttons were selected previously
         /// </summary>
         public void FocusOnAnswerField() {
-            displayedOptions[0].Select();
+            for (int i = 0; i < 4; i++)
+            {
+                if (displayedOptions[i].Checked) return;
+            }
+            displayedOptions[0].Focus();
         }
     }
 }

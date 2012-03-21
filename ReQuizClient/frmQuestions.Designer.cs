@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmQuestions));
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnNextQuestion = new System.Windows.Forms.Button();
@@ -35,7 +36,7 @@
             this.lblQuestionNumber = new System.Windows.Forms.Label();
             this.btnHint = new System.Windows.Forms.Button();
             this.lblHints = new System.Windows.Forms.Label();
-            this.ttfrmQuestions = new System.Windows.Forms.ToolTip();
+            this.ttfrmQuestions = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnSubmit
@@ -44,7 +45,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(138, 25);
             this.btnSubmit.TabIndex = 0;
-            this.btnSubmit.Text = "&Submit";
+            this.btnSubmit.Text = "&Finish";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
