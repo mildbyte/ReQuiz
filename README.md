@@ -27,7 +27,8 @@ personal data in the report, as well as many things that are not really needed
 when I've dealt with that.
 
 The instructions for using the program should be fairly obvious from the floating hints
-and button captions. The common usage pattern is as follows:
+and button captions. There is also a user manual attached.
+The common usage pattern is as follows:
 
 * The teacher enters the quiz parameters into the server and starts it.
 * The students connect to the server using their clients.
